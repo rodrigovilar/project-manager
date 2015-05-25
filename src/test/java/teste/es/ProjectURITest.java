@@ -105,8 +105,8 @@ public class ProjectURITest {
 		String uri = "/projects/"
 				+ project.getId();
 
-		project.setName("Name Changed!");
-		project.setDescription("Description Changed!");
+		project.setFullName("Name Changed!");
+		project.setFullDescription("Description Changed!");
 
 		mockMvc.perform(
 				MockMvcRequestBuilders.put(uri)

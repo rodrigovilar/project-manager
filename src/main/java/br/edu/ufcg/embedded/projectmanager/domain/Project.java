@@ -20,12 +20,21 @@ public class Project implements Identifiable {
 
 	@NotNull
 	@NotBlank
-	@Length(max = 200)
-	private String name;
+	@Length(max = 40)
+	private String fullName;
+	
+	@NotNull
+	@NotBlank
+	@Length(max = 30)
+	private String shortName;
 
 	@NotNull
 	@NotBlank
-	private String description;
+	private String fullDescription;
+	
+	@NotNull
+	@NotBlank
+	private String shortDescription;
 
 	public Project() {
 		super();
@@ -41,26 +50,45 @@ public class Project implements Identifiable {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getFullName() {
+		return fullName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFullName(String name) {
+		this.fullName = name;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getFullDescription() {
+		return fullDescription;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setFullDescription(String description) {
+		this.fullDescription = description;
+	}	
+
+	public String getShortName() {
+		return shortName;
+	}
+
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
+	}
+
+	public String getShortDescription() {
+		return shortDescription;
+	}
+
+	public void setShortDescription(String shortDescription) {
+		this.shortDescription = shortDescription;
 	}
 
 	@Override
 	public String toString() {
-		return "Project [id=" + id + ", name=" + name + ", description="
-				+ description + "]";
+		return "ProjectRest [id=" + id + ", full_name=" + fullName 
+				+ ", short_name=" + shortName
+				+ ", full_description=" + fullDescription 
+				+ ", short_description=" + shortDescription
+				+ "]";
 	}
 
 }

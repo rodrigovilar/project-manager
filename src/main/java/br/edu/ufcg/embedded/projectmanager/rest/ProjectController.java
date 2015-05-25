@@ -51,7 +51,7 @@ public class ProjectController {
 		List<ProjectRest> projects = new ArrayList<ProjectRest>();
 
 		for (Project project : response.getObjects()) {
-			projects.add(ProjectRest.fromCore(project));
+			projects.add(ProjectRest.fromCore(project));			
 		}
 
 		return projects;
@@ -60,10 +60,9 @@ public class ProjectController {
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<ProjectRest> projectProject(
 			@RequestBody ProjectRest projectRest, UriComponentsBuilder builder) {
-
 		CreateRequestEvent<Project> request = new CreateRequestEvent<Project>(
 				projectRest.toCore());
-
+		
 		CreateResponseEvent<Project> response;
 
 		try {
@@ -82,7 +81,6 @@ public class ProjectController {
 
 		return new ResponseEntity<ProjectRest>(createdProjectRest, headers,
 				HttpStatus.CREATED);
-
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
@@ -148,7 +146,6 @@ public class ProjectController {
 			return new ResponseEntity<ProjectRest>(projectRest,
 					HttpStatus.FORBIDDEN);
 		}
-
 		return new ResponseEntity<ProjectRest>(updatedProjectRest, HttpStatus.OK);
 	}
 }

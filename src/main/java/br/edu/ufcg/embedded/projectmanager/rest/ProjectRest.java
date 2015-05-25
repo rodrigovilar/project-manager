@@ -13,8 +13,10 @@ public class ProjectRest implements Serializable {
 	private static final long serialVersionUID = 4431345413823505552L;
 
 	private Integer id;
-	private String name;
-	private String description;
+	private String fullName;
+	private String shortName;
+	private String fullDescription;
+	private String shortDescription;
 
 	public ProjectRest() {
 	}
@@ -27,20 +29,36 @@ public class ProjectRest implements Serializable {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getFullName() {
+		return fullName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFullName(String name) {
+		this.fullName = name;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getFullDescription() {
+		return fullDescription;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setFullDescription(String description) {
+		this.fullDescription = description;
+	}	
+
+	public String getShortName() {
+		return shortName;
+	}
+
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
+	}
+
+	public String getShortDescription() {
+		return shortDescription;
+	}
+
+	public void setShortDescription(String shortDescription) {
+		this.shortDescription = shortDescription;
 	}
 
 	public static ProjectRest fromCore(Project project) {
@@ -53,8 +71,11 @@ public class ProjectRest implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ProjectRest [id=" + id + ", name=" + name + ", description="
-				+ description + "]";
+		return "ProjectRest [id=" + id + ", full_name=" + fullName 
+				+ ", short_name=" + shortName
+				+ ", full_description=" + fullDescription 
+				+ ", short_description=" + shortDescription
+				+ "]";
 	}
 
 }

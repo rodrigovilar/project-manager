@@ -12,8 +12,8 @@ public class ProjectData {
 	public static Project buildProject(Integer id, String name, String description) {
 		Project project = new Project();
 		project.setId(id);
-		project.setName(name);
-		project.setDescription(description);
+		project.setFullName(name);
+		project.setFullDescription(description);
 		return project;
 	}
 

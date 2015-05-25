@@ -33,7 +33,7 @@ public abstract class GenericServiceImpl<T, R extends
 			@Valid CreateRequestEvent<T> request) {
 
 		T object = repository.saveAndFlush(request.getObject());
-
+		
 		return new CreateResponseEvent<T>(
 				object);
 	}
