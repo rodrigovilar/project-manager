@@ -3,13 +3,12 @@ package br.edu.ufcg.embedded.projectmanager.listener;
 import br.edu.ufcg.embedded.projectmanager.client.TuleapClient;
 import br.edu.ufcg.embedded.projectmanager.domain.Project;
 import br.edu.ufcg.embedded.projectmanager.exception.ProjectException;
-import br.edu.ufcg.embedded.projectmanager.exception.TuleapException;
 
 public class TuleapListener implements ProjectListener {
 
 	@Override
 	public void projectCreated(Project project) throws ProjectException {
-		TuleapClient.createTuleapProject(project);		
+		//TuleapClient.createTuleapProject(project);		
 	}
 
 }

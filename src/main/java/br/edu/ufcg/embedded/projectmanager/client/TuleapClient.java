@@ -43,7 +43,7 @@ public class TuleapClient {
 			HttpResponse responsePostLogin = httpClient.execute(httpPostLogin); 
 			EntityUtils.consume(responsePostLogin.getEntity()); 
 			
-			/* GET page Create Project */ 
+			/* GET page Create Project (restricted page) */ 
 			HttpGet httpGetProject = new HttpGet(urlCreateProject); 
 			HttpResponse responseGetCreateProject = httpClient.execute(httpGetProject);			
 			if(checkSuccess(responseGetCreateProject, "Project Creation request")){
