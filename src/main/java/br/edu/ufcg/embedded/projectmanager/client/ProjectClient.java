@@ -12,7 +12,7 @@ public class ProjectClient {
 		final BufferedReader reader = new BufferedReader(new InputStreamReader( response.getEntity().getContent())); 
 		String line; 
 		boolean found = false; 
-		while ((line = reader.readLine()) != null) { 			
+		while ((line = reader.readLine()) != null) { 	
 			if(line.contains(string)) {
 				return !found; 
 			} 

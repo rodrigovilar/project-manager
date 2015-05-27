@@ -1,8 +1,5 @@
 package br.edu.ufcg.embedded.projectmanager.client;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +17,7 @@ import br.edu.ufcg.embedded.projectmanager.domain.Project;
 import br.edu.ufcg.embedded.projectmanager.exception.ProjectException;
 import br.edu.ufcg.embedded.projectmanager.exception.TuleapException;
 
-public class TuleapClient {
+public class TuleapClient extends ProjectClient{
 	
 	public static void createTuleapProject(Project project) throws ProjectException {
 		try {
@@ -77,17 +74,5 @@ public class TuleapClient {
 		} catch (Exception e){
 			throw new TuleapException("Erro ao criar projeto Tuleap");
 		} 
-	}
-		
-	private static boolean checkSuccess(final HttpResponse response, String string) throws IOException { 
-		final BufferedReader reader = new BufferedReader(new InputStreamReader( response.getEntity().getContent())); 
-		String line; 
-		boolean found = false; 
-		while ((line = reader.readLine()) != null) { 			
-			if(line.contains(string)) {
-				return !found; 
-			} 
-		} 
-		return found; 
 	}	
 }
