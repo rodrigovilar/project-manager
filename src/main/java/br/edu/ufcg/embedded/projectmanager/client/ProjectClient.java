@@ -1,22 +1,24 @@
 package br.edu.ufcg.embedded.projectmanager.client;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
-import org.apache.http.HttpResponse;
+import org.apache.http.HttpEntity;
+import org.apache.http.util.EntityUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 public class ProjectClient {
 	
-	 public static boolean checkSuccess(final HttpResponse response, String string) throws IOException { 
-		final BufferedReader reader = new BufferedReader(new InputStreamReader( response.getEntity().getContent())); 
-		String line; 
-		boolean found = false; 
-		while ((line = reader.readLine()) != null) { 	
-			if(line.contains(string)) {
-				return !found; 
-			} 
-		} 
-		return found; 
+	public static boolean checkSuccess(final HttpEntity entity, String string) throws IOException { 		 	 
+		String HTML = EntityUtils.toString(entity);		
+        Document doc = Jsoup.parse(HTML); 
+        Elements elements = doc.getAllElements();
+        for (Element element:elements) {
+        	if (element.toString().contains(string)) 
+        		return true;
+        }
+        return false;
 	}	
 }

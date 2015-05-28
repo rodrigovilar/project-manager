@@ -8,7 +8,7 @@ public class TuleapListener implements ProjectListener {
 
 	@Override
 	public void projectCreated(Project project) throws ProjectException {
-		//TuleapClient.createTuleapProject(project);		
+		TuleapClient.createTuleapProject(project);		
 	}
 
 }

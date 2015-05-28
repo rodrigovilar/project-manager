@@ -1,9 +1,13 @@
 package br.edu.ufcg.embedded.projectmanager.client;
 
+import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.Consts;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -42,14 +46,15 @@ public class TuleapClient extends ProjectClient{
 			
 			/* GET page Create Project (restricted page) */ 
 			HttpGet httpGetProject = new HttpGet(urlCreateProject); 
-			HttpResponse responseGetCreateProject = httpClient.execute(httpGetProject);			
-			if(checkSuccess(responseGetCreateProject, "Project Creation request")){
-				EntityUtils.consume(responseGetCreateProject.getEntity());
+			HttpResponse responseGetCreateProject = httpClient.execute(httpGetProject);		
+			HttpEntity entityGetCreateProject = responseGetCreateProject.getEntity();
+			if(checkSuccess(entityGetCreateProject, "Project Creation request")){
+				EntityUtils.consume(entityGetCreateProject);
 				
 				/* POST page Create Project */
-				HttpPost httpPostCreateProject = new HttpPost(urlCreateProject); 		
+				HttpPost httpPostCreateProject = new HttpPost(urlCreateProject); 
+				httpPostCreateProject.addHeader("Content-Type", "application/x-www-form-urlencoded");				
 				List<NameValuePair> dataPost = new ArrayList<NameValuePair>(); 
-				httpPostCreateProject.addHeader("Content-Type", "application/x-www-form-urlencoded");
 				dataPost.add(new BasicNameValuePair("onestep", "true")); 
 				dataPost.add(new BasicNameValuePair("form_full_name", project.getFullName())); 
 				dataPost.add(new BasicNameValuePair("form_unix_name", project.getShortName()));  
@@ -62,16 +67,17 @@ public class TuleapClient extends ProjectClient{
 				dataPost.add(new BasicNameValuePair("create_project", "Create the project")); 
 				httpPostCreateProject.setEntity(new UrlEncodedFormEntity(dataPost, Consts.UTF_8)); 		
 				HttpResponse responsePostCreateProject = httpClient.execute(httpPostCreateProject); 
-				if(checkSuccess(responsePostCreateProject, "Registration completed")) {
+				HttpEntity entityPostCreateProject = responsePostCreateProject.getEntity();
+				if(checkSuccess(entityPostCreateProject, "Registration completed")) {
 					 System.out.println("PROJECT TULEAP CREATED"); // melhorar esse parte.
 				} else {				
 					throw new TuleapException("Erro ao criar projeto Tuleap, parametros invalidos");
 				}
-				EntityUtils.consume(responsePostCreateProject.getEntity()); 
+				EntityUtils.consume(entityPostCreateProject); 
 			} else {
 				throw new TuleapException("Erro ao criar projeto Tuleap, falha no login");
 			}			
-		} catch (Exception e){
+		} catch (IOException | KeyManagementException | NoSuchAlgorithmException e) {
 			throw new TuleapException("Erro ao criar projeto Tuleap");
 		} 
 	}	
