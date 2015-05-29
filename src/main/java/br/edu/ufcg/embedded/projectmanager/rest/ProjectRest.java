@@ -17,6 +17,7 @@ public class ProjectRest implements Serializable {
 	private String shortName;
 	private String fullDescription;
 	private String shortDescription;
+	private String projectVisibility;
 
 	public ProjectRest() {
 	}
@@ -64,18 +65,26 @@ public class ProjectRest implements Serializable {
 	public static ProjectRest fromCore(Project project) {
 		return RestUtil.convert(project, new ProjectRest());
 	}
+	
+	public String getProjectVisibility() {
+		return projectVisibility;
+	}
+
+	public void setProjectVisibility(String projectVisibility) {
+		this.projectVisibility = projectVisibility;
+	}
 
 	public Project toCore() {
 		return RestUtil.convert(this, new Project());
 	}
-
+	
 	@Override
 	public String toString() {
 		return "ProjectRest [id=" + id + ", full_name=" + fullName 
 				+ ", short_name=" + shortName
 				+ ", full_description=" + fullDescription 
 				+ ", short_description=" + shortDescription
+				+ ", projectVisibility=" + projectVisibility
 				+ "]";
 	}
-
 }

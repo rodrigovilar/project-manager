@@ -8,7 +8,7 @@ public class GitLabListener implements ProjectListener {
 
 	@Override
 	public void projectCreated(Project project) throws ProjectException {
-		GitLabClient.createGitLabProject(project);		
+		GitLabClient.instance().createGitLabProject(project);		
 	}
 
 }

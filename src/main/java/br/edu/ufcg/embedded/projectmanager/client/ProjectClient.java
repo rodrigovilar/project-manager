@@ -9,8 +9,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class ProjectClient {
-	
+public abstract class ProjectClient {
+		
 	public static boolean checkSuccess(final HttpEntity entity, String string) throws IOException { 		 	 
 		String HTML = EntityUtils.toString(entity);		
         Document doc = Jsoup.parse(HTML); 
