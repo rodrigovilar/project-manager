@@ -2,6 +2,7 @@ package teste.es;
 
 import java.util.List;
 
+import br.edu.ufcg.embedded.projectmanager.exception.ProjectException;
 import br.edu.ufcg.embedded.projectmanager.generic.GenericService;
 import br.edu.ufcg.embedded.projectmanager.generic.event.CreateRequestEvent;
 import br.edu.ufcg.embedded.projectmanager.generic.event.CreateResponseEvent;
@@ -27,7 +28,7 @@ public class TestUtil {
 		return "";
 	}
 
-	public static <T> T create(GenericService<T> service, T object) {
+	public static <T> T create(GenericService<T> service, T object) throws ProjectException {
 		CreateResponseEvent<T> response = service
 				.request(new CreateRequestEvent<T>(object));
 		return response.getObject();

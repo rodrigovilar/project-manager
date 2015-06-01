@@ -41,27 +41,25 @@ public class TestLinkClient extends ProjectClient{
 				                    true, //enableAutomation
 				                    false, //enableInventory
 				                    true, //isActive
-				                    !project.getProjectVisibility().equals("0") //isPublic
+				                    true //isPublic (precisa ser publico para que seja possivel criar o test plan)
 				                    ); 
 			
 			System.out.println( "Test Project ID: [ " + testlinkProject.getId() + " ]." );	
-			createTestPlan(project);
+			
+			createTestPlan(testlinkProject);
 		} catch( TestLinkAPIException e) {
-			throw new TestLinkException("Erro ao criar projeto TestLink: "+e.getMessage());
+			throw new TestLinkException("Erro ao criar projeto TestLink: " + e.getMessage());
 		}
-	}
-		
-	private  void createTestPlan(Project project) {
+	}	
+	
+	private void createTestPlan(TestProject project) {		
 		TestPlan testPlan = api.createTestPlan(
-				"Complete", //Plan Name
-				project.getFullName(), // Project Name
-				project.getFullDescription(), //Description
-				true, //Is Active
-				!project.getProjectVisibility().equals("0") //Is Public
-				);
-		System.out.println( "Test Plan ID: [ " + testPlan.getId() + " ]." );		
+				"Complete", // Plan name
+				project.getName(), //Project Name
+				project.getNotes(),  //Description
+				project.isActive(), //Is Active
+				project.isPublic() //Is Public
+				); 
+		System.out.println( "Test Plan ID: [ " + testPlan.getId() + " ]." );	
 	}
-	
-	
-	
 }
