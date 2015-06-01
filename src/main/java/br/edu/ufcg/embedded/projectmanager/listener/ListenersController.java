@@ -17,10 +17,10 @@ public class ListenersController {
 	
 	private static List<ProjectListener> projectCreatedListeners() {
 		List<ProjectListener> listeners = new ArrayList<ProjectListener>();
-		listeners.add(new TuleapListener());
+		//listeners.add(new TuleapListener());
 		listeners.add(new TestLinkListener());
-		listeners.add(new GitLabListener());
-		listeners.add(new JenkinsListener());
+		//listeners.add(new GitLabListener());
+		//listeners.add(new JenkinsListener());
 		return listeners;
 	}
 	

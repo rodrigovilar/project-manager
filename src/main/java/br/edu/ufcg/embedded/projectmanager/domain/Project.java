@@ -35,6 +35,10 @@ public class Project implements Identifiable {
 	@NotNull
 	@NotBlank
 	private String shortDescription;
+	
+	@NotNull
+	@NotBlank
+	private String projectVisibility;
 
 	public Project() {
 		super();
@@ -82,13 +86,21 @@ public class Project implements Identifiable {
 		this.shortDescription = shortDescription;
 	}
 
+	public String getProjectVisibility() {
+		return projectVisibility;
+	}
+
+	public void setProjectVisibility(String projectVisibility) {
+		this.projectVisibility = projectVisibility;
+	}
+
 	@Override
 	public String toString() {
 		return "ProjectRest [id=" + id + ", full_name=" + fullName 
 				+ ", short_name=" + shortName
 				+ ", full_description=" + fullDescription 
 				+ ", short_description=" + shortDescription
+				+ ", projectVisibility=" + projectVisibility
 				+ "]";
 	}
-
 }

@@ -22,6 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.edu.ufcg.embedded.projectmanager.domain.Project;
 import br.edu.ufcg.embedded.projectmanager.domain.ProjectService;
+import br.edu.ufcg.embedded.projectmanager.exception.ProjectException;
 import br.edu.ufcg.embedded.projectmanager.generic.event.CreateRequestEvent;
 import br.edu.ufcg.embedded.projectmanager.generic.event.CreateResponseEvent;
 import br.edu.ufcg.embedded.projectmanager.generic.event.DeleteRequestEvent;
@@ -67,7 +68,8 @@ public class ProjectController {
 
 		try {
 			response = service.request(request);
-		} catch (ConstraintViolationException exception) {
+		} catch (ConstraintViolationException | ProjectException exception) {
+			exception.printStackTrace();
 			Logger.getLogger(ProjectController.class.getSimpleName()).
 			log(Level.ALL, exception.getMessage(), exception);
 			return new ResponseEntity<ProjectRest>(HttpStatus.BAD_REQUEST);

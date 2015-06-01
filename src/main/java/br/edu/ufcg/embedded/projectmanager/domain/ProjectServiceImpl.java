@@ -20,7 +20,7 @@ public class ProjectServiceImpl extends
 	@Transactional
 	@Override
 	public CreateResponseEvent<Project> request(
-			@Valid CreateRequestEvent<Project> request) {
+			@Valid CreateRequestEvent<Project> request) throws ProjectException {
 		
 		try {
 			Project object = repository.saveAndFlush(request.getObject());
@@ -29,11 +29,8 @@ public class ProjectServiceImpl extends
 			
 			return new CreateResponseEvent<Project>(object);
 		} catch (ProjectException e) {
-			e.printStackTrace(); //tratar
-			return null;
-		}
-
-		
+			throw new ProjectException("Erro ao criar os projetos: "+e.getMessage());
+		}		
 	}
 
 }

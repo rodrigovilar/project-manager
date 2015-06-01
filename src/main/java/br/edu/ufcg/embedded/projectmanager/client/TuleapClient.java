@@ -60,7 +60,7 @@ public class TuleapClient extends ProjectClient{
 				dataPost.add(new BasicNameValuePair("form_unix_name", project.getShortName()));  
 				dataPost.add(new BasicNameValuePair("form_short_description", project.getShortDescription())); 
 				dataPost.add(new BasicNameValuePair("form_101", project.getFullDescription())); 
-				dataPost.add(new BasicNameValuePair("is_public", "0")); 
+				dataPost.add(new BasicNameValuePair("is_public", project.getProjectVisibility().equals("0")?"0":"1")); //project 0 private, 1 public 
 				dataPost.add(new BasicNameValuePair("form_license", "xrx")); 
 				dataPost.add(new BasicNameValuePair("built_from_template", "100"));
 				dataPost.add(new BasicNameValuePair("form_terms_of_services_approval", "approved")); 
@@ -71,14 +71,14 @@ public class TuleapClient extends ProjectClient{
 				if(checkSuccess(entityPostCreateProject, "Registration completed")) {
 					 System.out.println("PROJECT TULEAP CREATED"); // melhorar esse parte.
 				} else {				
-					throw new TuleapException("Erro ao criar projeto Tuleap, parametros invalidos");
+					throw new TuleapException("Erro ao criar projeto Tuleap: parametros invalidos");
 				}
 				EntityUtils.consume(entityPostCreateProject); 
 			} else {
-				throw new TuleapException("Erro ao criar projeto Tuleap, falha no login");
+				throw new TuleapException("Erro ao criar projeto Tuleap: falha no login");
 			}			
 		} catch (IOException | KeyManagementException | NoSuchAlgorithmException e) {
-			throw new TuleapException("Erro ao criar projeto Tuleap");
+			throw new TuleapException("Erro ao criar projeto Tuleap: "+e.getMessage());
 		} 
 	}	
 }
