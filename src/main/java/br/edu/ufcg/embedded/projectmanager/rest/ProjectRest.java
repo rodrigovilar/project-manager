@@ -18,6 +18,7 @@ public class ProjectRest implements Serializable {
 	private String fullDescription;
 	private String shortDescription;
 	private String projectVisibility;
+	private String type;
 
 	public ProjectRest() {
 	}
@@ -72,6 +73,14 @@ public class ProjectRest implements Serializable {
 
 	public void setProjectVisibility(String projectVisibility) {
 		this.projectVisibility = projectVisibility;
+	}
+	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public Project toCore() {

@@ -40,6 +40,10 @@ public class Project implements Identifiable {
 	@NotBlank
 	private String projectVisibility;
 
+	@NotNull
+	@NotBlank
+	private String type;
+
 	public Project() {
 		super();
 	}
@@ -92,6 +96,14 @@ public class Project implements Identifiable {
 
 	public void setProjectVisibility(String projectVisibility) {
 		this.projectVisibility = projectVisibility;
+	}
+	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	@Override
