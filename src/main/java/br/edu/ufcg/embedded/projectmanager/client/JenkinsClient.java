@@ -108,9 +108,9 @@ public class JenkinsClient extends ProjectClient {
 			File file = null;
 			
 			if (project.getType().equals("android") && (sufix.equals("DEV") || sufix.equals("UAT"))) {
-				file = new File("config/android/config-dev.xml");
+				file = new File("src/main/config/android/config-dev.xml");
 			} else if (project.getType().equals("android") && sufix.equals("INT")) {
-				file = new File("config/android/config-int.xml");
+				file = new File("src/main/config/android/config-int.xml");
 			}
 			
 			int ch;

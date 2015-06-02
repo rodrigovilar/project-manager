@@ -18,9 +18,9 @@ public class ListenersController {
 	
 	private static List<EventListener> generatorListeners() {
 		List<EventListener> listeners = new ArrayList<EventListener>();
-		listeners.add(new TuleapListener());
-		listeners.add(new TestLinkListener());
-		listeners.add(new GitLabListener());
+		//listeners.add(new TuleapListener());
+		//listeners.add(new TestLinkListener());
+		//listeners.add(new GitLabListener());
 		listeners.add(new JenkinsListener());
 		return listeners;
 	}
