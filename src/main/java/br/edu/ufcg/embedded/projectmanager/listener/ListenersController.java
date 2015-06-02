@@ -10,13 +10,13 @@ public class ListenersController {
 	
 	public static void startListeners() {
 		Bus bus = new Bus();
-		List<ProjectListener> projectCreated = projectCreatedListeners();
+		List<EventListener> projectCreated = projectCreatedListeners();
 		bus.addListeners(Bus.PROJECT_CREATED, projectCreated);
 	}
 	
 	
-	private static List<ProjectListener> projectCreatedListeners() {
-		List<ProjectListener> listeners = new ArrayList<ProjectListener>();
+	private static List<EventListener> projectCreatedListeners() {
+		List<EventListener> listeners = new ArrayList<EventListener>();
 		//listeners.add(new TuleapListener());
 		listeners.add(new TestLinkListener());
 		//listeners.add(new GitLabListener());

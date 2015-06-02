@@ -7,7 +7,7 @@ import org.gitlab.api.models.GitlabProject;
 
 import br.edu.ufcg.embedded.projectmanager.domain.Project;
 import br.edu.ufcg.embedded.projectmanager.exception.GitLabException;
-import br.edu.ufcg.embedded.projectmanager.exception.ProjectException;
+import br.edu.ufcg.embedded.projectmanager.exception.EventException;
 
 public class GitLabClient extends ProjectClient {
 	
@@ -24,7 +24,7 @@ public class GitLabClient extends ProjectClient {
 		return client;
 	}	
 	
-	public void createGitLabProject(Project project) throws ProjectException {		
+	public void createGitLabProject(Project project) throws EventException {		
 		try {			
 			GitlabProject gitlabProject = api.createProject(
 					project.getShortName(), // The name of the project

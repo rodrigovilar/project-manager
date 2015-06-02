@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
-import br.edu.ufcg.embedded.projectmanager.exception.ProjectException;
+import br.edu.ufcg.embedded.projectmanager.exception.EventException;
 import br.edu.ufcg.embedded.projectmanager.generic.event.CreateRequestEvent;
 import br.edu.ufcg.embedded.projectmanager.generic.event.CreateResponseEvent;
 import br.edu.ufcg.embedded.projectmanager.generic.event.DeleteRequestEvent;
@@ -31,7 +31,7 @@ public abstract class GenericServiceImpl<T, R extends
 	@Transactional
 	@Override
 	public CreateResponseEvent<T> request(
-			@Valid CreateRequestEvent<T> request) throws ProjectException {
+			@Valid CreateRequestEvent<T> request) throws EventException {
 
 		T object = repository.saveAndFlush(request.getObject());
 		

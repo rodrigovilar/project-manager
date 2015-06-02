@@ -1,6 +1,6 @@
 package br.edu.ufcg.embedded.projectmanager.exception;
 
-public class TestLinkException extends ProjectException{
+public class TestLinkException extends EventException{
 	/**
 	 * 
 	 */
