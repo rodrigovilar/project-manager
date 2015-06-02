@@ -1,6 +1,6 @@
 package br.edu.ufcg.embedded.projectmanager.exception;
 
-public class GitLabException extends ProjectException{
+public class GitLabException extends EventException{
 
 	/**
 	 * 

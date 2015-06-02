@@ -4,7 +4,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import br.edu.ufcg.embedded.projectmanager.domain.Project;
-import br.edu.ufcg.embedded.projectmanager.exception.ProjectException;
+import br.edu.ufcg.embedded.projectmanager.exception.EventException;
 import br.edu.ufcg.embedded.projectmanager.exception.TestLinkException;
 import br.eti.kinoshita.testlinkjavaapi.TestLinkAPI;
 import br.eti.kinoshita.testlinkjavaapi.model.TestPlan;
@@ -16,7 +16,7 @@ public class TestLinkClient extends ProjectClient{
 	private TestLinkAPI api;
 	private static TestLinkClient client;
 	
-	private TestLinkClient() throws ProjectException{
+	private TestLinkClient() throws EventException{
 		try {
 			api = new TestLinkAPI(new URL(Constants.URL_TESTLINK), Constants.TESTLINK_DEVKEY);
 		} catch (TestLinkAPIException | MalformedURLException e) {
@@ -24,13 +24,13 @@ public class TestLinkClient extends ProjectClient{
 		}
 	}
 	
-	public static TestLinkClient instance() throws ProjectException {
+	public static TestLinkClient instance() throws EventException {
 		if (client == null)
 			client = new TestLinkClient();		
 		return client;
 	}
 	
-	public void createTestLinkProject(Project project) throws ProjectException {
+	public void createTestLinkProject(Project project) throws EventException {
 		try{					
 			TestProject testlinkProject = api.createTestProject(
 				                    project.getFullName(), //testProjectName

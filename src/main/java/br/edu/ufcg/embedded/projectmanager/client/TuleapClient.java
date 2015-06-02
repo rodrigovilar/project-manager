@@ -18,12 +18,12 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
 import br.edu.ufcg.embedded.projectmanager.domain.Project;
-import br.edu.ufcg.embedded.projectmanager.exception.ProjectException;
+import br.edu.ufcg.embedded.projectmanager.exception.EventException;
 import br.edu.ufcg.embedded.projectmanager.exception.TuleapException;
 
 public class TuleapClient extends ProjectClient{
 	
-	public static void createTuleapProject(Project project) throws ProjectException {
+	public static void createTuleapProject(Project project) throws EventException {
 		try {
 			final String urlLogin = Constants.URL_TULEAP + "/account/login.php";
 			final String urlCreateProject = Constants.URL_TULEAP + "/project/register.php";

@@ -1,6 +1,6 @@
 package br.edu.ufcg.embedded.projectmanager.exception;
 
-public class TuleapException extends ProjectException {
+public class TuleapException extends EventException {
 	
 	/**
 	 * 
