@@ -10,4 +10,6 @@ public class Constants {
 	public static final String URL_TESTLINK = "http://192.168.17.49:81/testlink/lib/api/xmlrpc/v1/xmlrpc.php";
 	public static final String TESTLINK_DEVKEY = "476725754c14a61bb5df9f13d2c446d9";
 	
+	public static final String URL_JENKINS = "http://192.168.17.49:8000";
+	
 }

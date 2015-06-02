@@ -1,0 +1,244 @@
+<project>
+	<actions />
+	<description />
+	<keepDependencies>false</keepDependencies>
+	<properties>
+		<hudson.model.ParametersDefinitionProperty>
+			<parameterDefinitions>
+				<hudson.model.StringParameterDefinition>
+					<name>gitlabSourceBranch</name>
+					<description />
+					<defaultValue></defaultValue>
+				</hudson.model.StringParameterDefinition>
+				<org.jvnet.jenkins.plugins.nodelabelparameter.NodeParameterDefinition plugin="nodelabelparameter@1.5.1">
+					<name>NODE</name>
+					<description />
+					<allowedSlaves>
+						<string>Slave-Default</string>
+					</allowedSlaves>
+					<defaultSlaves>
+						<string>Slave-Default</string>
+					</defaultSlaves>
+					<triggerIfResult>multiSelectionDisallowed</triggerIfResult>
+					<allowMultiNodeSelection>false</allowMultiNodeSelection>
+					<triggerConcurrentBuilds>false</triggerConcurrentBuilds>
+					<ignoreOfflineNodes>false</ignoreOfflineNodes>
+					<nodeEligibility class="org.jvnet.jenkins.plugins.nodelabelparameter.node.AllNodeEligibility" />
+				</org.jvnet.jenkins.plugins.nodelabelparameter.NodeParameterDefinition>
+			</parameterDefinitions>
+		</hudson.model.ParametersDefinitionProperty>
+	</properties>
+	<scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.5">
+		<configVersion>2</configVersion>
+		<userRemoteConfigs>
+			<hudson.plugins.git.UserRemoteConfig>
+				<url>http://asus.embedded.ufcg.edu.br:8081/root/mobile-actions.git</url>
+				<credentialsId>b6250004-9c76-4db3-979c-8c83057f00f6</credentialsId>
+			</hudson.plugins.git.UserRemoteConfig>
+		</userRemoteConfigs>
+		<branches>
+			<hudson.plugins.git.BranchSpec>
+				<name>*/${gitlabSourceBranch}</name>
+			</hudson.plugins.git.BranchSpec>
+		</branches>
+		<doGenerateSubmoduleConfigurations>false
+		</doGenerateSubmoduleConfigurations>
+		<submoduleCfg class="list" />
+		<extensions />
+	</scm>
+	<canRoam>true</canRoam>
+	<disabled>false</disabled>
+	<blockBuildWhenDownstreamBuilding>false
+	</blockBuildWhenDownstreamBuilding>
+	<blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+	<triggers>
+		<com.dabsquared.gitlabjenkins.GitLabPushTrigger plugin="gitlab-plugin@1.1.23">
+			<spec />
+			<triggerOnPush>false</triggerOnPush>
+			<triggerOnMergeRequest>true</triggerOnMergeRequest>
+			<triggerOpenMergeRequestOnPush>true</triggerOpenMergeRequestOnPush>
+			<ciSkip>false</ciSkip>
+			<setBuildDescription>true</setBuildDescription>
+			<addNoteOnMergeRequest>true</addNoteOnMergeRequest>
+			<addVoteOnMergeRequest>true</addVoteOnMergeRequest>
+			<allowAllBranches>true</allowAllBranches>
+			<allowedBranches>
+				<string>development</string>
+				<string>master</string>
+			</allowedBranches>
+		</com.dabsquared.gitlabjenkins.GitLabPushTrigger>
+	</triggers>
+	<concurrentBuild>false</concurrentBuild>
+	<builders>
+		<hudson.plugins.gradle.Gradle plugin="gradle@1.24">
+			<description>BUILD PROJECT</description>
+			<switches />
+			<tasks>clean assemble</tasks>
+			<rootBuildScriptDir />
+			<buildFile />
+			<gradleName>gradle</gradleName>
+			<useWrapper>true</useWrapper>
+			<makeExecutable>true</makeExecutable>
+			<fromRootBuildScriptDir>false</fromRootBuildScriptDir>
+			<useWorkspaceAsHome>true</useWorkspaceAsHome>
+		</hudson.plugins.gradle.Gradle>
+		<hudson.plugins.gradle.Gradle plugin="gradle@1.24">
+			<description>TEST PROJECT</description>
+			<switches />
+			<tasks>connectedAndroidTest</tasks>
+			<rootBuildScriptDir />
+			<buildFile />
+			<gradleName>gradle</gradleName>
+			<useWrapper>true</useWrapper>
+			<makeExecutable>true</makeExecutable>
+			<fromRootBuildScriptDir>false</fromRootBuildScriptDir>
+			<useWorkspaceAsHome>false</useWorkspaceAsHome>
+		</hudson.plugins.gradle.Gradle>
+		<hudson.plugins.gradle.Gradle plugin="gradle@1.24">
+			<description>ANALYSE PROJECT</description>
+			<switches />
+			<tasks>createDebugCoverageReport pmd checkstyle findbugs lint</tasks>
+			<rootBuildScriptDir />
+			<buildFile />
+			<gradleName>gradle</gradleName>
+			<useWrapper>true</useWrapper>
+			<makeExecutable>true</makeExecutable>
+			<fromRootBuildScriptDir>false</fromRootBuildScriptDir>
+			<useWorkspaceAsHome>false</useWorkspaceAsHome>
+		</hudson.plugins.gradle.Gradle>
+	</builders>
+	<publishers>
+		<org.jenkinsci.plugins.android__lint.LintPublisher plugin="android-lint@2.2">
+			<healthy />
+			<unHealthy />
+			<thresholdLimit>low</thresholdLimit>
+			<pluginName>[android-lint]</pluginName>
+			<defaultEncoding />
+			<canRunOnFailed>false</canRunOnFailed>
+			<usePreviousBuildAsReference>false</usePreviousBuildAsReference>
+			<useStableBuildAsReference>false</useStableBuildAsReference>
+			<useDeltaValues>false</useDeltaValues>
+			<thresholds plugin="analysis-core@1.71">
+				<unstableTotalAll />
+				<unstableTotalHigh />
+				<unstableTotalNormal />
+				<unstableTotalLow />
+				<failedTotalAll />
+				<failedTotalHigh />
+				<failedTotalNormal />
+				<failedTotalLow />
+			</thresholds>
+			<shouldDetectModules>false</shouldDetectModules>
+			<dontComputeNew>true</dontComputeNew>
+			<doNotResolveRelativePaths>false</doNotResolveRelativePaths>
+			<pattern>app/build/outputs/reports/lint/lint.xml</pattern>
+		</org.jenkinsci.plugins.android__lint.LintPublisher>
+		<hudson.plugins.checkstyle.CheckStylePublisher
+			plugin="checkstyle@3.42">
+			<healthy />
+			<unHealthy />
+			<thresholdLimit>low</thresholdLimit>
+			<pluginName>[CHECKSTYLE]</pluginName>
+			<defaultEncoding />
+			<canRunOnFailed>false</canRunOnFailed>
+			<usePreviousBuildAsReference>false</usePreviousBuildAsReference>
+			<useStableBuildAsReference>false</useStableBuildAsReference>
+			<useDeltaValues>false</useDeltaValues>
+			<thresholds plugin="analysis-core@1.71">
+				<unstableTotalAll />
+				<unstableTotalHigh />
+				<unstableTotalNormal />
+				<unstableTotalLow />
+				<failedTotalAll />
+				<failedTotalHigh />
+				<failedTotalNormal />
+				<failedTotalLow />
+			</thresholds>
+			<shouldDetectModules>false</shouldDetectModules>
+			<dontComputeNew>true</dontComputeNew>
+			<doNotResolveRelativePaths>true</doNotResolveRelativePaths>
+			<pattern>app/build/outputs/reports/checkstyle/checkstyle.xml</pattern>
+		</hudson.plugins.checkstyle.CheckStylePublisher>
+		<hudson.plugins.findbugs.FindBugsPublisher plugin="findbugs@4.60">
+			<healthy />
+			<unHealthy />
+			<thresholdLimit>low</thresholdLimit>
+			<pluginName>[FINDBUGS]</pluginName>
+			<defaultEncoding />
+			<canRunOnFailed>false</canRunOnFailed>
+			<usePreviousBuildAsReference>false</usePreviousBuildAsReference>
+			<useStableBuildAsReference>false</useStableBuildAsReference>
+			<useDeltaValues>false</useDeltaValues>
+			<thresholds plugin="analysis-core@1.71">
+				<unstableTotalAll />
+				<unstableTotalHigh />
+				<unstableTotalNormal />
+				<unstableTotalLow />
+				<failedTotalAll />
+				<failedTotalHigh />
+				<failedTotalNormal />
+				<failedTotalLow />
+			</thresholds>
+			<shouldDetectModules>false</shouldDetectModules>
+			<dontComputeNew>true</dontComputeNew>
+			<doNotResolveRelativePaths>true</doNotResolveRelativePaths>
+			<pattern>app/build/outputs/reports/findbugs/findbugs.xml</pattern>
+			<isRankActivated>false</isRankActivated>
+			<excludePattern />
+			<includePattern />
+		</hudson.plugins.findbugs.FindBugsPublisher>
+		<hudson.plugins.pmd.PmdPublisher plugin="pmd@3.41">
+			<healthy />
+			<unHealthy />
+			<thresholdLimit>low</thresholdLimit>
+			<pluginName>[PMD]</pluginName>
+			<defaultEncoding />
+			<canRunOnFailed>false</canRunOnFailed>
+			<usePreviousBuildAsReference>false</usePreviousBuildAsReference>
+			<useStableBuildAsReference>false</useStableBuildAsReference>
+			<useDeltaValues>false</useDeltaValues>
+			<thresholds plugin="analysis-core@1.71">
+				<unstableTotalAll />
+				<unstableTotalHigh />
+				<unstableTotalNormal />
+				<unstableTotalLow />
+				<failedTotalAll />
+				<failedTotalHigh />
+				<failedTotalNormal />
+				<failedTotalLow />
+			</thresholds>
+			<shouldDetectModules>false</shouldDetectModules>
+			<dontComputeNew>true</dontComputeNew>
+			<doNotResolveRelativePaths>true</doNotResolveRelativePaths>
+			<pattern>app/build/outputs/reports/pmd/pmd.xml</pattern>
+		</hudson.plugins.pmd.PmdPublisher>
+		<hudson.tasks.junit.JUnitResultArchiver
+			plugin="junit@1.6">
+			<testResults>app/build/outputs/androidTest-results/connected/*.xml</testResults>
+			<keepLongStdio>false</keepLongStdio>
+			<healthScaleFactor>1.0</healthScaleFactor>
+		</hudson.tasks.junit.JUnitResultArchiver>
+		<hudson.plugins.jacoco.JacocoPublisher plugin="jacoco@1.0.19">
+			<execPattern>**/**.ec</execPattern>
+			<classPattern>**/classes</classPattern>
+			<sourcePattern>**/src/main/java/</sourcePattern>
+			<inclusionPattern />
+			<exclusionPattern>**/BuildConfig.class, **/R.class, **/R$*.class, **/*Test*.class, build_*, quality_*, settings_*
+			</exclusionPattern>
+			<minimumInstructionCoverage>85</minimumInstructionCoverage>
+			<minimumBranchCoverage>85</minimumBranchCoverage>
+			<minimumComplexityCoverage>85</minimumComplexityCoverage>
+			<minimumLineCoverage>85</minimumLineCoverage>
+			<minimumMethodCoverage>85</minimumMethodCoverage>
+			<minimumClassCoverage>85</minimumClassCoverage>
+			<maximumInstructionCoverage>90</maximumInstructionCoverage>
+			<maximumBranchCoverage>90</maximumBranchCoverage>
+			<maximumComplexityCoverage>90</maximumComplexityCoverage>
+			<maximumLineCoverage>90</maximumLineCoverage>
+			<maximumMethodCoverage>90</maximumMethodCoverage>
+			<maximumClassCoverage>90</maximumClassCoverage>
+			<changeBuildStatus>false</changeBuildStatus>
+		</hudson.plugins.jacoco.JacocoPublisher>
+	</publishers>
+	<buildWrappers />
+</project>
